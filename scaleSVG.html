@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"></meta>
+  <style>
+  span#myTextSpan {
+    color:red;
+  }
+ 
+  </style>
+<head>
+<body>
+<svg height="150" width="150" id="myGraphic">
+<circle cx="25" r="20" cy="20" fill="orange" id="myCircle"/>
+</svg>
+<button id="zoom" onclick="zoomIn();">Zoom in</button>
+<script
+  src="https://code.jquery.com/jquery-3.1.1.js"
+  integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+  crossorigin="anonymous"></script>
+<script>
+function zoomIn(){
+  var myGraphic = document.getElementById("myGraphic");
+  myGraphic.setAttribute("currentScale", 1.5);
+}
+</script>
+</body>
+</html>

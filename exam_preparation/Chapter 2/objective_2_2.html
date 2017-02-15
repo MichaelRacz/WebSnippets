@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>objective 2.2</title>
+<style>
+	div {
+		width: 500px;
+		height: 300px;
+		border: 1px solid black;
+	}
+
+	/* bubble sample */
+	#outer {
+         width: 200px;
+         height: 200px;
+         background-color: red;
+	}
+
+	#middle {
+         width: 50%;
+         height: 50%;
+         position: relative;
+         top: 25%;
+         left: 25%;
+         background-color: green;
+	}
+
+	#inner {
+         width: 50%;
+         height: 50%;
+         position: relative;
+         top: 25%;
+         left: 25%;
+         background-color: blue;
+}
+</style>
+<script>
+
+function onloadHandler (){
+	var contentDiv = document.getElementById("content");
+	contentDiv.innerText += "inline defined onload handler called\n";
+}
+
+function clickHandler () {
+	alert("clicked!");
+
+	//cancel event:
+	window.event.returnValue = false;
+    //or
+    //return false;
+}
+
+function removeHandlerForDiv () {
+	var contentDiv = document.getElementById("content");
+	contentDiv.removeEventListener ("click", clickHandler, false);
+}
+
+window.onload = function (){
+	var contentDiv = document.getElementById("content");
+	contentDiv.innerText += "onload handler defined by assignment in script called\n";
+
+	contentDiv.addEventListener("click", clickHandler, false);
+
+	// sample for event bubbling
+	// false => inner to outer (bubbling), true => outer to inner (capturing)
+	// jQuery only supports bubbling
+	document.getElementById("outer").addEventListener("click", outerDivClick, false);
+	document.getElementById("middle").addEventListener("click", middleDivClick, false);
+	document.getElementById("inner").addEventListener("click", innerDivClick, false);
+	document.getElementById("clearButton").addEventListener("click", clearList);
+
+	//document.getElementById("outer").addEventListener("click", outerDivClick, true);
+	//document.getElementById("middle").addEventListener("click", middleDivClick, true);
+	//document.getElementById("inner").addEventListener("click", innerDivClick, true);
+	//document.getElementById("clearButton").addEventListener("click", clearList);
+
+	// there are more focus events (list in the book)
+	document.getElementById("textInput").focus();
+	document.getElementById("textInput").addEventListener("blur", function () {
+		if (this.value.length > 5) {
+        	alert('not more than 5 letters.');
+            this.focus();
+        }});
+
+    // keyboard events in the book
+    // mouse events in the book
+
+    // custom event
+    function customEventHandler() {
+     	alert(window.event.detail.description);
+	}
+
+	document.addEventListener("anAction", customEventHandler);
+
+	myEvent = new CustomEvent(
+       "anAction",
+        {
+            detail: { description: "a description of the event",
+                      timeofevent: new Date(),
+                      eventcode: 2 },
+            bubbles: true,
+            cancelable: true
+        });
+
+	document.dispatchEvent(myEvent);
+}
+
+function outerDivClick() {
+	appendText("outer Div Clicked");
+}
+
+function middleDivClick() {
+	appendText("middle Div Clicked");
+}
+
+function innerDivClick() {
+	appendText("inner Div Clicked");
+
+	window.event.cancelBubble = true;
+}
+
+function appendText(s) {
+	var li = document.createElement("li");
+    li.innerText = s;
+    document.getElementById("eventOrder").appendChild(li);
+}
+
+function clearList() {
+	var bodyElement = document.getElementsByTagName("body")[0];
+	bodyElement.removeChild(document.getElementById("eventOrder"));
+	var ol = document.createElement("ol");
+    ol.id = "eventOrder";
+    bodyElement.insertBefore(ol, document.getElementById("clearButton"));
+}
+
+function textChanged () {
+	alert ("text has changed");
+}
+
+</script>
+</head>
+<body onload="onloadHandler();">
+	<div id="content"></div>
+	<button id="removeHandlerButton" type="button" onclick="removeHandlerForDiv();">remove handler for content div</button>
+
+	<div id="outer">
+        <div id="middle" >
+            <div id="inner">
+            </div>
+        </div>
+    </div>
+    <ol id="eventOrder"> </ol>
+    <button type="button" id="clearButton">Clear</button>
+    <input id="textInput" onchange="textChanged();"></input>
+</body>
+</html>

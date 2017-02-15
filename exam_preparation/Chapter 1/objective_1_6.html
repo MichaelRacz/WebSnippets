@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>objective 1.6</title>
+	<script>
+		// global namespace contains e.g. Math, Array
+		var squareValue = Math.sqrt(144);
+		var listofPrimeNumbers = new Array(1, 2, 3, 5, 7, 11, 13, 17, 19, 23);
+
+		var thisIsAnObject = {
+			x: 123,
+			y: {},
+			z: function () {alert("bla");}
+		}
+
+		// prototype for the sample object
+		function MyObject(){
+			this.x = 123;
+			this.y = { description: "this is a nested object" };
+			this.z = function () {alert("bla");};
+		}
+
+		var arrayOfObjects = new Array(new MyObject(), new MyObject());
+
+		// multiple constructors can be defined if prototype is changed directly
+		function A(){
+			// definition of the prototype applies
+		}
+
+		function A (valueForX){
+			this.x = valueForX;
+		}
+
+		A.prototype = {
+			x: 123,
+			y: { description: "nested object" },
+		}
+
+		// alternative syntax
+		A.prototype.z = function() { alert("hi :)"); }
+
+		// inline inheritance
+		var extended = Object.create(A.prototype, { extension: {value: "this is added to A" } });
+
+		// inheritance
+		function C(){
+			A.call(this);	// call ctor of super class
+		}
+
+		C.prototype = A.prototype;
+		C.prototype.extension = "this is added to A";
+	</script>
+</head>
+<body>
+<section>
+<header><hgroup><h1>Topics of the objective</h1><hgroup><header>
+<ul>
+	<li>JavaScript basics</li>
+	<li>prototype pattern</li>
+	<li>inheritance</li>
+</ul>
+</section>
+</body>
+</html>

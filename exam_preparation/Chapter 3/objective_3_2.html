@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>objective 3.2</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+// regular expressions in book
+
+function CheckString() {
+	try{
+		var s = $('#regExString').val();
+        var regExpression = /^[A-Z,a-z]\d[A-Z,a-z][\s{1}]?\d[A-Z,a-z]\d/;
+        
+        if (regExpression.test(s))
+        	alert("Valid postal code.");
+        else
+        	alert("Invalid postal code.");
+	}
+	catch (e) {
+    	alert(e.message);
+	}
+	
+	// regex provides: test, exec, match, search
+}
+
+function CheckNumber(value){
+
+	if(isNan(value)){
+		// value not a number
+	}
+	else {
+		// value is number
+	}
+
+}
+
+</script>	
+</head>
+<body>
+
+<input type="text" id="regExString"></input>
+<button type="button" onclick="CheckString();">Check using regex</button>
+
+<iframe width="400px" height="300px" src="http://www.derstandard.at" sandbox="allow-scripts allow-top-navigation allow-same-origin 􏰋􏰃􏰃􏰉􏰍􏰦􏰝􏰉􏰈􏰁􏰐allow-forms"></iframe>
+    
+</body>
+</html>

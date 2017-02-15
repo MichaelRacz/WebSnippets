@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>objective 2.1</title>
+<script>
+window.onload = function (){
+
+var content = document.getElementById("content");
+content.innerText += "equality operator: 2 == '2' is: " + (2 == '2') + "\n";
+content.innerText += "identity operator: 2 === '2' is: " + (2 === '2') + "\n";
+
+content.innerText += "equality operator: {x: 1} == {x: 1} is: " + ({x: 1} == {x: 1}) + "\n";
+content.innerText += "identity operator: {x: 1} === {x: 1} is: " + ({x: 1} === {x: 1}) + "\n";
+
+function A(){};
+A.prototype = { x: 1 };
+content.innerText += "equality operator: new A() == new A() is: " + (new A() == new A()) + "\n";
+content.innerText += "identity operator: new A() === new A() is: " + (new A() === new A()) + "\n";
+
+content.innerText += "=> to compare objects use JSON.stringify or write own equals method! \n";
+
+if(1 == 1, 1 === 1)
+	content.innerText += "interesting syntax for if \n";
+
+// switch like in other languages, cases must be constants
+
+content.innerText += "arrays \n";
+var array = new Array();
+array[1] = "the only value that is set";
+content.innerText += "[" + array + "]\n";
+array = new Array(5);
+content.innerText += "[" + array + "]\n";
+array = new Array(1, 2, 3, 4, 5);
+content.innerText += "[" + array + "]\n";
+array = [1, 2, 3, 4, 5];
+content.innerText += "[" + array + "]\n";
+
+var concatenated = [1,2].concat(new Array(3,4));
+content.innerText += "concatenated array: [" + concatenated + "]\n";
+
+array = [1,2,3,4,1];
+content.innerText += "initial array: " + array + "\n";
+content.innerText += "indexOf, lastIndexOf: " + array.indexOf(2) + ", " + array.lastIndexOf(1) + "\n";
+content.innerText += "join: " + array.join(" | ") + "\n";
+content.innerText += "reverse: " + array.reverse() + "\n";
+content.innerText += "sort: " + array.sort() + "\n";
+content.innerText += "slice: " + array.slice(1, 3) + "\n";
+
+var splicedItems = array.splice(2, 2, 'a', 'b');
+content.innerText += "splice (changes original array!): " + array + "\n";
+content.innerText += "spliced items: " + splicedItems + "\n";
+
+content.innerText += "push and pop\n";
+array = [1,1];
+array.push('a');
+content.innerText += "array: " + array + "\n";
+var item = array.pop();
+content.innerText += "array: " + array + "\n";
+
+content.innerText += "shift and unshift\n";
+array = [1,1];
+array.unshift('a', 'b');
+content.innerText += "array: " + array + "\n";
+var item = array.shift();
+content.innerText += "array: " + array + "\n";
+
+content.innerText += "queue with push and shift\n";
+array = [1,1];
+array.push('a');
+content.innerText += "array: " + array + "\n";
+var item = array.shift();
+content.innerText += "array: " + array + "\n";
+
+array = [2, 4, 5, 8];
+content.innerText += "array: " + array + "\n";
+
+function isEven(value, index, array){
+	return value % 2 == 0;
+};
+
+content.innerText += "every: " + array.every(isEven, this) + "\n";
+content.innerText += "some: " + array.some(isEven, this) + "\n";
+
+content.innerText += "forEach:\n";
+array.forEach(function (value, index, array) { content.innerText += index + " " + value + "\n"; });
+content.innerText += "filter: " + array.filter(isEven, this) + "\n";
+content.innerText += "map: " + array.map(function (value, index, array) {return "prefix vor value: " + value}, array) + "\n";
+
+function add (previous, current){
+	return previous + current;
+}
+
+content.innerText += "reduce/reduceRight: " + array.reduce(add) + "\n";
+
+content.innerText += "for ... in:\n";
+var anyObject = { 1: 'x', "yz": 345 };
+
+for (property in anyObject) {
+	content.innerText += property + ": " + anyObject[property] + "\n";
+}
+
+}
+</script>
+</head>
+<body>
+	<div id="content"/>
+</body>
+</html>

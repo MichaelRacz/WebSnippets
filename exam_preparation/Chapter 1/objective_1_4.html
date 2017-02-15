@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>objective 1.4</title>
+	<style>
+		section {
+			margin-top: 15px;
+		}
+	</style>
+	<script>
+		window.onload = function () {
+			var x = new Object();
+			x.description = "localStorage/sessionStorage stores string key/value pairs. objects can be stored using JSON.stringify()";
+			x.anotherValue = "foo";
+			localStorage.setItem("an object:", JSON.stringify(x));
+			loadFromStorage();
+		
+			document.getElementById("buttonAdd").onclick = function () {
+				var key = document.getElementById("toStorageKey").value;
+				var value = document.getElementById("toStorageValue").value;
+				localStorage.setItem(key, value);
+				loadFromStorage();
+			}
+			
+			document.getElementById("buttonRemove").onclick = function () {
+				var key = document.getElementById("toStorageKey").value;
+				localStorage.removeItem(key);
+				loadFromStorage();
+			}
+			
+			document.getElementById("buttonClear").onclick = function () {
+				localStorage.clear();
+				loadFromStorage();
+			}
+			
+			function loadFromStorage () {
+				var storageDiv = document.getElementById("storage");
+				var table = document.createElement("table");
+				table.id = "storageTable";
+				
+				// sessionStorage has the same api as localStorage!!
+				if(localStorage.length > 0){
+					for(var i = 0; i < localStorage.length; i++){
+						var row = document.createElement("tr");
+						var key = document.createElement("td");
+						var value = document.createElement("td");
+						key.innerText = localStorage.key(i);
+						value.innerText = localStorage.getItem(localStorage.key(i));
+						row.appendChild(key);
+						row.appendChild(value);
+						table.appendChild(row);
+					}
+				}
+				else{
+					var row = document.createElement("tr");
+					var column = document.createElement("td");
+					column.innerText = "No data in storage";
+					row.appendChild(column);
+					table.appendChild(row);
+				}
+				
+				if (document.getElementById("storageTable"))
+       				storageDiv.removeChild(document.getElementById("storageTable"));
+				
+				storageDiv.appendChild(table);
+			}
+			
+			var geoLocator = window.navigator.geolocation;
+            var posOptions = {enableHighAccuracy: true,timeout: 45000};
+            geoLocator.getCurrentPosition(successPosition, errorPosition, posOptions);
+            watcher = geoLocator.watchPosition(successPositionWatch, errorPositionWatch, posOptions);
+		}
+		
+		function successPosition(pos) {
+       		var sp = document.createElement("p");
+       		sp.innerText = "Latitude: " + pos.coords.latitude + " Longitude: " +  pos.coords.longitude;
+	       	document.getElementById("geoResults").appendChild(sp);
+    	}
+    	
+    	function errorPosition(err) {
+       		var sp = document.createElement("p");
+			sp.innerText = "error: " + err.message; + " code: " + err.code;
+       		document.getElementById("geoResults").appendChild(sp);
+       	}
+       	
+       	function successPositionWatch(pos) {
+		    var sp = document.createElement("p");
+    		sp.innerText = "Latitude: " + pos.coords.latitude + " Longitude: " + pos.coords.longitude;
+    		document.getElementById("geoResultsWatch").appendChild(sp);
+    		// pause polling
+    		geoLocator.clearWatch(watcher);
+		}
+
+		function errorPositionWatch(err) {
+    		var sp = document.createElement("p");
+    		sp.innerText = "error: " + err.message; + " code: " + err.code;
+    		document.getElementById("geoResultsWatch").appendChild(sp);
+		}
+	</script>
+</head>
+<body>
+<section>
+Key: <input type="text" id="toStorageKey"/>
+Value: <input type="text" id="toStorageValue"/><br/>
+</section>
+<section>
+	<button type="button" id="buttonAdd">Add to storage</button>
+	<button type="button" id="buttonRemove">Remove from storage</button>
+	<button type="button" id="buttonClear">Clear storage</button>
+</section>
+<div id="storage">
+	<p>Current storage contents</p>
+</div>
+<section>
+The AppCache API defines a manifest to specify which resources are cached, must not be cached and fallback resources (more details in the book).
+</section>
+<section>
+<header><hgroup>Geolocation API</hgroup></header>
+<div id="geoResults">
+	<p>Current Location is:</p>
+</div>
+<div id="geoResultsWatch">
+	<p>Current Location is:</p>
+</div>
+</section>
+</body>
+</html>
+
+
+
+
+
+
+

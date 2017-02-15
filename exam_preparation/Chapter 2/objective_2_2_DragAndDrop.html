@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>objective 2.2</title>
+<style>
+	
+	.dropped {
+        width: 50%;
+        height: 50%;
+        position: relative;
+        top: 25%;
+		left: 25%;
+        background-color:black;
+    }
+    
+    .over {
+    	transform: scale(1.1);
+	}
+	
+	.bucket {
+        width: 100px;
+        height: 100px;
+        margin: 10px 10px 10px 10px;
+        position:absolute;
+	}
+	
+	.chip {
+        width:20px;
+        height:20px;
+        position:absolute;
+    }
+    
+    .firstDiv {
+        background-color: red;
+    }
+    
+    .secondDiv {
+		background-color: green;
+        left:25%;
+	}
+    
+    .thirdDiv {
+       	background-color: blue;
+		left:50%;
+	}
+    
+    #chip {
+        background-color: black;
+        width:50px;
+        height:50px;
+	}
+	
+	.begin {
+        position:absolute;
+        left: 150px;
+        top: 150px;
+	}    
+}
+</style>
+<script>
+
+window.onload = function (){
+
+var chip = document.getElementById("chip");
+chip.addEventListener("dragstart", function () { window.event.dataTransfer.setData("Text", this.id); });
+
+wireUpEvents(document.getElementById("bucket1"));
+wireUpEvents(document.getElementById("bucket2"));
+wireUpEvents(document.getElementById("bucket3"));
+
+}
+
+function wireUpEvents (bucket) {
+	bucket.addEventListener("dragenter", function () {
+		bucket.classList.add("over");
+       	window.event.returnValue = false;
+	});
+
+	bucket.addEventListener("dragleave", function () {
+       	bucket.classList.remove("over");
+	});
+
+	bucket.addEventListener("dragover", function () {
+    	window.event.returnValue = false;
+	});
+
+	bucket.addEventListener("drop", function () {
+       	window.event.returnValue = false;
+       	var data = event.dataTransfer.getData("Text");
+       	var d = document.getElementById(data);
+       	d.classList.remove("begin");
+       	d.classList.add("dropped");
+       	this.appendChild(d);
+	});
+}
+</script>	
+</head>
+<body onload="onloadHandler();">
+    <div id="bucket1" class="bucket firstDiv"></div>
+    <div id="bucket2" class="bucket secondDiv"></div>
+    <div id="bucket3" class="bucket thirdDiv"></div>
+    <div id="chip" draggable="true" class="chip"></div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>objective 2.4</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+window.onload = function() {
+
+// find web sockets in book
+// open
+// wsConnection=  new WebSocket('ws://studygroup.70480.com', ['soap', 'xmpp']);
+// wsConnection.send(msgToSend.value);
+// wsConnection.onopen = function () {
+// wsConnection.onerror = function (err) {
+// wsConnection.onclose = function () {
+// wsConnection.onmessage = function (msg) {
+// wsConnection.close()
+// WebSocket 􏰃􏰉􏰋􏰑􏰚􏰛􏰇􏰋􏰇readyState values: Open, Opening, Closing, Closed
+
+// find ajax in book
+
+// event wiring with jQuery
+$(document).ready(function () {
+	$("#GameRow td").click(function () {
+		alert("clicked");
+	});
+	
+	$("td").each(function() {
+		$(this).click(function() {
+			$(this).css("background-color", "red");
+		});
+	});
+});
+
+}
+</script>	
+</head>
+<body>
+<table>
+        <tr id="GameRow">
+            <td id="door1">Door 1</td>
+            <td id="door2">Door 2</td>
+            <td id="door3">Door 3</td>
+        </tr>
+</table>
+<table>
+        <tr id="SomeOtherRow">
+            <td id="cell1">Not a Door 1</td>
+            <td id="cell2">Not a Door 2</td>
+            <td id="cell3">Not a Door 3</td>
+        </tr>
+</table>
+</body>
+</html>

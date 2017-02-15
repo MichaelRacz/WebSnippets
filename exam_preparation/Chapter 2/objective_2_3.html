@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>objective 2.3</title>
+<script type="text/javascript">
+
+window.onload = function() {
+
+var content = document.getElementById("content")
+
+try{
+	window.doesnotexist();
+}
+catch(e){
+	var message = "message: " + e.message + ", name: " + e.name + ", number: " + e.number + "\n";
+	content.innerText += message;
+}
+finally {
+	content.innerText += "finally\n";
+}
+
+var x;
+
+if(x == null)
+	content.innerText += "checking for null values\n";
+	
+try{
+	var errorNumber = 4;
+	throw new Error("This is the error description of a custom error", errorNumber);
+}
+catch (e){
+	content.innerText += e.message + "\n";
+}
+
+
+try{
+	
+	throw {message: "any object can be thrown"};
+}
+catch (e){
+	content.innerText += e.message + "\n";
+}
+
+}
+</script>	
+</head>
+<body>
+<div id="content"></div>
+</body>
+</html>
